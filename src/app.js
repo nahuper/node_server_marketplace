@@ -50,6 +50,19 @@ app.get("/user_cart/:id", (req, res)=>{
     });
 });
 
+app.post("/user_cart", (req, res) => {
+    const {road, doorNumb, c, creditC, secCode, venc, sumatory} = req.body;
+    console.log(road);
+    console.log(doorNumb);
+    console.log(c);
+    console.log(creditC);
+    console.log(secCode);
+    console.log(venc);
+    console.log(sumatory);
+
+    res.send(req.body);
+
+})
 
 app.listen(port, ()=>{
     console.log(`http//:localhost:${port}/`);
