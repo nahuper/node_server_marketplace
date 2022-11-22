@@ -2,10 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = process.env.port || 3000;
-
+const fs = require("fs");
 app.use(cors());
 app.use(express.json());
 
+const json_user_data = fs.readFileSync('src/shopping.json', 'utf-8');
+const shoppingData = JSON.parse(json_user_data);
 
 
 app.get("/cats_products/:id", (req, res)=>{
@@ -51,14 +53,53 @@ app.get("/user_cart/:id", (req, res)=>{
 });
 
 app.post("/user_cart", (req, res) => {
-    const {road, doorNumb, c, creditC, secCode, venc, sumatory} = req.body;
-    console.log(road);
+    const {r, doorNumb, esq, creditC, secCode, venc, sumatory, subtGeneral, resultShipCost, bankAccount} = req.body;
+    
+
+    let dataObj = {};
+
+    if(bankAccount===""){
+        dataObj = {
+            r,
+                doorNumb,
+                esq,
+                creditC,
+                secCode,
+                venc,
+                sumatory,
+                subtGeneral,
+                resultShipCost,
+        };
+    }else{
+        dataObj = {
+            r,
+                doorNumb,
+                esq,
+                sumatory,
+                subtGeneral,
+                resultShipCost,
+                bankAccount
+        };
+    }
+    
+    
+    
+
+    
+
+    shoppingData.push(dataObj);
+
+    const json_user_data = JSON.stringify(shoppingData);
+    fs.writeFileSync('src/shopping.json', json_user_data, 'utf-8');
+
+
+    /*console.log(road);
     console.log(doorNumb);
     console.log(c);
     console.log(creditC);
     console.log(secCode);
     console.log(venc);
-    console.log(sumatory);
+    console.log(sumatory);*/
 
     res.send(req.body);
 
