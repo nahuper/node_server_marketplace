@@ -45,7 +45,7 @@ app.get("/products_comments/:id", (req, res)=>{
     });
 });
 
-app.get("/cats/:id", (req, res)=>{
+app.get("/cats/:id", limiter, (req, res)=>{
     
     res.sendFile("./cats/" + req.params.id + ".json", {
         root: __dirname
