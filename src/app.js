@@ -1,4 +1,5 @@
 const express = require("express");
+const escape = require('escape-html');
 const cors = require("cors");
 const app = express();
 const port = process.env.port || 3000;
@@ -101,7 +102,14 @@ app.post("/user_cart", (req, res) => {
     console.log(venc);
     console.log(sumatory);*/
 
-    res.send(req.body);
+    const escape = require('escape-html');
+    const sanitizedBody = {};
+    for (const key in req.body) {
+        if (req.body.hasOwnProperty(key)) {
+            sanitizedBody[key] = escape(req.body[key]);
+        }
+    }
+    res.send(sanitizedBody);
 
 })
 
