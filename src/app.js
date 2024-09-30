@@ -52,7 +52,7 @@ app.get("/cats/:id", limiter, (req, res)=>{
     });
 });
 
-app.get("/user_cart/:id", (req, res)=>{
+app.get("/user_cart/:id", limiter, (req, res)=>{
     
     res.sendFile("./user_cart/" + req.params.id + ".json", {
         root: __dirname
