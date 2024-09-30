@@ -17,7 +17,7 @@ const limiter = rateLimit({
     max: 100, // max 100 requests per windowMs
 });
 
-app.get("/cats_products/:id", (req, res)=>{
+app.get("/cats_products/:id", limiter, (req, res)=>{
     
     res.sendFile("./cats_products/" + req.params.id + ".json", {
         root: __dirname
